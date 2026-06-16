@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lesson 1 — The Circle Mystery | Calculus Reinvented</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" crossorigin="anonymous" />
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<div class="bg-grid" aria-hidden="true"></div>
+<div class="bg-glow" aria-hidden="true"></div>
+
+<nav class="nav">
+  <div class="brand">∂ <span>tutor</span></div>
+  <div class="nav-links">
+    <a href="#story">The Mystery</a>
+    <a href="#lab">The Lab</a>
+    <a href="#reveal">The Reveal</a>
+    <a href="#next">What's Next</a>
+  </div>
+</nav>
+
+<!-- ░░░ hero ░░░ -->
+<header class="hero">
+  <p class="eyebrow">LESSON 1 · ESSENCE OF CALCULUS</p>
+  <h1>The<br><span class="grad">Circle Mystery</span></h1>
+  <p class="sub">You've written \(A=\pi r^2\) a hundred times. But <em>why</em> is it true?
+     Today we don't memorize it — we <em>discover</em> it, and calculus is born in our hands.</p>
+  <a class="cta" href="#story">Start the story ↓</a>
+</header>
+
+<main>
+
+<!-- ░░░ the story ░░░ -->
+<section id="story" class="panel">
+  <div class="tag">THE HOOK</div>
+  <h2>A formula you trust but can't explain</h2>
+  <p class="lead">Quick — where does the \(\pi r^2\) come from? Not "the teacher said so." The <em>actual reason.</em>
+     Most people who use this formula every day have never seen why it's true. By the end of this page, you will —
+     and you'll have invented a piece of calculus to get there.</p>
+
+  <div class="story-step">
+    <span class="step-n">1</span>
+    <div>
+      <h3>Cut the circle into rings</h3>
+      <p>Think of a tree trunk, or an onion. A disk is just a stack of thin <em>rings</em> nested inside each other —
+         from a tiny one in the center out to the edge. If we understand <em>one</em> ring, we understand the whole circle.</p>
+    </div>
+  </div>
+
+  <div class="story-step">
+    <span class="step-n">2</span>
+    <div>
+      <h3>Unroll one ring → it's basically a rectangle</h3>
+      <p>Take the ring at radius \(r\) with a tiny thickness \(dr\). Snip it and straighten it out.
+         Its length is the circumference \(2\pi r\); its height is the thickness \(dr\). So its area is about</p>
+      <div class="formula small">$$\text{area of one ring} \;\approx\; \underbrace{2\pi r}_{\text{length}}\;\cdot\;\underbrace{dr}_{\text{height}}$$</div>
+    </div>
+  </div>
+
+  <div class="story-step">
+    <span class="step-n">3</span>
+    <div>
+      <h3>Line up every unrolled ring</h3>
+      <p>Each ring becomes a thin bar. The center ring is tiny (length \(\approx 0\)); the outer ring is the longest (\(2\pi R\)).
+         Stand them side by side, shortest to longest, and a <em>shape</em> appears. Go play with it below 👇</p>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░ the interactive lab ░░░ -->
+<section id="lab" class="panel">
+  <div class="tag">INTERACTIVE · DRAG IT</div>
+  <h2>Slice the circle, build the area</h2>
+  <p class="lead">Left: the circle cut into <b id="nLabel">8</b> rings. Right: each ring unrolled into a bar,
+     standing under the line \(y=2\pi r\). The bars are an <em>approximation</em> of the area. Add more rings
+     and watch the staircase melt into a perfect triangle.</p>
+
+  <div class="lab">
+    <div class="canvas-wrap"><canvas id="circleCanvas"></canvas></div>
+    <div class="canvas-wrap"><canvas id="barsCanvas"></canvas></div>
+  </div>
+
+  <div class="controls-row">
+    <div class="ctrl-block">
+      <label>Number of rings&nbsp; N = <span id="nVal" class="mono">8</span></label>
+      <input id="nSlider" type="range" min="1" max="300" step="1" value="8" />
+      <button id="animBtn" class="anim">▶ Add rings → ∞</button>
+    </div>
+    <div class="readout wide">
+      <div class="row"><span><span class="dot blue"></span>bars (our estimate)</span><b id="approxVal" class="mono blue">—</b></div>
+      <div class="row"><span><span class="dot gold"></span>true area = π·R²</span><b id="trueVal" class="mono gold">—</b></div>
+      <div class="row gap"><span>how far off</span><b id="errVal" class="mono">—</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░ predict checkpoint ░░░ -->
+<section id="quiz" class="panel quizpanel">
+  <div class="tag">YOUR TURN · PREDICT FIRST</div>
+  <h2>Before you scroll…</h2>
+  <p class="lead">Crank N way up in the lab above. As the rings get infinitely thin, what shape do the
+     stacked bars form?</p>
+  <div class="quiz-opts">
+    <button data-ans="rect">A rectangle</button>
+    <button data-ans="triangle">A triangle</button>
+    <button data-ans="semi">A half-circle</button>
+  </div>
+  <div id="quizFb" class="quiz-fb"></div>
+</section>
+
+<!-- ░░░ the reveal ░░░ -->
+<section id="reveal" class="panel">
+  <div class="tag">THE PUNCHLINE</div>
+  <h2>The bars <em>are</em> a triangle</h2>
+  <p class="lead">As \(N\to\infty\), the staircase becomes the straight line \(y = 2\pi r\), and the bars fill a perfect
+     right triangle. Its area is dead simple:</p>
+  <div class="formula">$$A \;=\; \tfrac12 \cdot \text{base} \cdot \text{height} \;=\; \tfrac12 \cdot \underbrace{R}_{\text{radius}} \cdot \underbrace{2\pi R}_{\text{biggest circumference}} \;=\; \boxed{\,\pi R^{2}\,}$$</div>
+  <p>That's it. The mysterious \(\pi r^2\) is just the <em>area of a triangle</em> in disguise. And the move we made —
+     chopping a shape into infinitely many tiny pieces and adding them up — has a name:
+     <span class="hl">integration</span>. You just did your first integral:</p>
+  <div class="formula">$$\int_{0}^{R} 2\pi r \,\, dr \;=\; \pi R^{2}$$</div>
+  <p>"Area under the line \(2\pi r\)" and "area of the circle" turned out to be the <em>same number</em>.
+     That bridge — between adding up tiny slices and the area under a curve — is the heartbeat of all of calculus.</p>
+</section>
+
+<!-- ░░░ what's next ░░░ -->
+<section id="next" class="panel center">
+  <div class="tag">THE ROAD AHEAD</div>
+  <h2>You just met one of the two big ideas</h2>
+  <div class="cards">
+    <div class="card"><span class="num">✓</span><h3>Integration (today)</h3><p>Adding up infinitely many tiny slices to get a total — area, distance, volume.</p></div>
+    <div class="card"><span class="num">02</span><h3>The Derivative</h3><p>The opposite move: zooming in to find how fast something changes <em>right now</em>.</p></div>
+    <div class="card"><span class="num">03</span><h3>They're inverses</h3><p>The Fundamental Theorem: slicing-up and zooming-in undo each other. The big reveal.</p></div>
+    <div class="card"><span class="num">04</span><h3>The whole toolkit</h3><p>Trig, \(e^x\), chain rule, optimization — each one rebuilt, never memorized.</p></div>
+  </div>
+  <p class="footnote">One lesson at a time. Story first, "why" always, then how to see it. — your tutor</p>
+</section>
+
+</main>
+
+<script src="js/plot.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

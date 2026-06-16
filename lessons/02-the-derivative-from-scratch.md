@@ -1,4 +1,4 @@
-# Lesson 1 — The Derivative, Reinvented
+# Lesson 2 — The Derivative, Reinvented
 
 ## The question Algebra cannot answer
 
